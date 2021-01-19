@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Core\Application.cpp" />
+    <ClCompile Include="Core\Main.cpp" />
+    <ClCompile Include="Core\ModuleEditor.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\log.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PerfTimer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Serialization.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui_demo.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui_draw.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui_impl_sdl.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ImGui\imgui_widgets.cpp">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ModuleInput.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ModuleWindow.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ModuleRenderer3D.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Application.h" />
+    <ClInclude Include="Core\Module.h" />
+    <ClInclude Include="Core\ModuleEditor.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Globals.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\p2Defs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PerfTimer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Serialization.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imconfig.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imgui.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imgui_impl_opengl3.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imgui_impl_sdl.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imgui_internal.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imstb_rectpack.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imstb_textedit.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ImGui\imstb_truetype.h">
+      <Filter>ExternalLibraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\JSON\json.hpp">
+      <Filter>ExternalLibraries\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ModuleInput.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ModuleWindow.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Glut\include\glut.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ModuleRenderer3D.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{4d639168-1298-47fa-a565-c77db1a1665d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalLibraries">
+      <UniqueIdentifier>{c6b68990-6c1e-40d2-984a-2e551394f3a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalLibraries\JSON">
+      <UniqueIdentifier>{dfb27ce3-a15c-4fb6-a299-2f3c16e1a6c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExternalLibraries\ImGui">
+      <UniqueIdentifier>{58fc8251-638f-442c-b826-4f331d86c201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{06a17112-b9b7-4869-9161-ffeb23811414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{e5f6ac45-c85b-49f8-9c87-b2fd9075f3b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
