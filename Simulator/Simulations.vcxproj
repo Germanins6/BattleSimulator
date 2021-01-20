@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Core\Application.cpp" />
     <ClCompile Include="Core\ImGui\imgui.cpp" />
     <ClCompile Include="Core\ImGui\imgui_demo.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="Core\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Core\Application.h" />
     <ClInclude Include="Core\Glut\include\glut.h" />
     <ClInclude Include="Core\JSON\json.hpp" />

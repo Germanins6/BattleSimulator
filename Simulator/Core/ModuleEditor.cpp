@@ -1,7 +1,7 @@
 //Modules
 #include "Application.h"
 #include "ModuleEditor.h"
-
+#include "../Character.h"
 
 //Tools
 #include "Globals.h"
@@ -12,6 +12,10 @@
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
     show_console_window = true;
+    show_characters_window = true;
+    show_stats_window = true;
+
+    character_selected = nullptr;
 }
 
 // Destructor
@@ -21,6 +25,11 @@ ModuleEditor::~ModuleEditor()
 
 bool ModuleEditor::Init() {
     bool ret = true;
+  
+    CreateCharacter("Sura", 600, 10, 5, 10, 3, 2, 6);
+    CreateCharacter("Kiran", 800, 20, 10, 3, 3, 4, 10);
+    CreateCharacter("Nathan", 400, 10, 2, 13, 1, 5, 3);
+    CreateCharacter("Iqniq", 1500, 25, 17, 5, 7, 6, 14);
 
     return ret;
 }
@@ -195,5 +204,46 @@ void ModuleEditor::UpdateWindowStatus() {
         ImGui::TextUnformatted(console_text.begin(), console_text.end());
         ImGui::SetScrollHere(1.0f);
         ImGui::End();
+    }
+
+    if (show_characters_window) {
+        ImGui::Begin("Characters");
+
+        for (size_t i = 0; i < characters.size(); i++)
+            ShowCharacters(characters[i]);
+
+        ImGui::End();
+    }
+
+    if (show_stats_window) {
+        ImGui::Begin("Character Stats");
+
+        if (character_selected != nullptr) {
+            ImGui::Text("Level %i", character_selected->level);
+            ImGui::DragInt("Vitality", &character_selected->vitality);
+            ImGui::DragInt("Wisdom", &character_selected->wisdom);
+            ImGui::DragInt("Strength", &character_selected->strength);
+            ImGui::DragInt("Defense", &character_selected->defense);
+            ImGui::DragInt("Arcane Defense", &character_selected->arcane_defense);
+            ImGui::DragInt("Control", &character_selected->control);
+        }
+
+        ImGui::End();
+    }
+}
+
+void ModuleEditor::CreateCharacter(std::string name, int vit, int wis, int str, int agi, int def, int arc_def, int ctrl) {
+
+
+    Character* newCharacter = new Character(name, vit, wis, str, agi, def, arc_def, ctrl);
+    characters.push_back(newCharacter);
+}
+
+void ModuleEditor::ShowCharacters(Character* character) {
+
+    if (ImGui::TreeNodeEx(character->char_name.c_str(), ImGuiTreeNodeFlags_Leaf)) {
+        if (ImGui::IsMouseClicked(0) && ImGui::IsAnyItemHovered())
+            character_selected = character;
+        ImGui::TreePop();
     }
 }

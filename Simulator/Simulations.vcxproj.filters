@@ -49,6 +49,9 @@
     <ClCompile Include="Core\Timer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\ImGui\imconfig.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="Core\Serialization.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

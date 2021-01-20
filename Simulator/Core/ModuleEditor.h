@@ -8,6 +8,10 @@
 #include "ImGui/imgui_impl_opengl3.h"
 
 #include <string>
+#include <vector>
+
+//Forward declaration
+class Character;
 
 class ModuleEditor : public Module
 {
@@ -34,14 +38,21 @@ public:
 	//Console Text Pushback
 	void UpdateText(const char* consoleText);
 
+	void CreateCharacter(std::string name, int vit, int wis, int str, int agi, int def, int arc_def, int ctrl);
+	void ShowCharacters(Character* character);
+
 public:
 
 	float window_width, window_height;
 
 	//Window status control
 	bool show_console_window;
+	bool show_characters_window;
+	bool show_stats_window;
 
 	ImGuiTextBuffer console_text;
 	ImGuiTreeNodeFlags tmp_flags;
 
+	std::vector<Character*> characters;
+	Character* character_selected;
 };
