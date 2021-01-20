@@ -89,17 +89,10 @@ update_status ModuleInput::PreUpdate(float dt)
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
-		//SDL able to be used with ImGui
 		ImGui_ImplSDL2_ProcessEvent(&e); 
 
 		switch(e.type)
 		{
-			case SDL_MOUSEWHEEL:
-			mouse_z = e.wheel.y;
-			//if (mouse_z < 0)App->camera->Position *= 1.2f;
-			//else if (mouse_z > 0)App->camera->Position /= 1.2f;
-			break;
-
 			case SDL_MOUSEMOTION:
 			mouse_x = e.motion.x / SCREEN_SIZE;
 			mouse_y = e.motion.y / SCREEN_SIZE;

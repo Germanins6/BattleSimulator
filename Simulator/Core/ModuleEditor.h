@@ -49,6 +49,8 @@ public:
 	bool show_console_window;
 	bool show_characters_window;
 	bool show_stats_window;
+	bool show_battle_window;
+	bool show_graph_window;
 
 	ImGuiTextBuffer console_text;
 	ImGuiTreeNodeFlags tmp_flags;

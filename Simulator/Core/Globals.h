@@ -33,5 +33,5 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "Simulator v0.1"
+#define TITLE "Theoniria Battle Simulator v0.1"
 #define ORGANITZATION "CITM UPC 2020-2021"

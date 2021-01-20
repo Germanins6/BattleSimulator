@@ -14,6 +14,8 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
     show_console_window = true;
     show_characters_window = true;
     show_stats_window = true;
+    show_battle_window = true;
+    show_graph_window = true;
 
     character_selected = nullptr;
 }
@@ -219,15 +221,76 @@ void ModuleEditor::UpdateWindowStatus() {
         ImGui::Begin("Character Stats");
 
         if (character_selected != nullptr) {
-            ImGui::Text("Level %i", character_selected->level);
-            ImGui::DragInt("Vitality", &character_selected->vitality);
-            ImGui::DragInt("Wisdom", &character_selected->wisdom);
-            ImGui::DragInt("Strength", &character_selected->strength);
-            ImGui::DragInt("Defense", &character_selected->defense);
-            ImGui::DragInt("Arcane Defense", &character_selected->arcane_defense);
-            ImGui::DragInt("Control", &character_selected->control);
+
+            //Level
+            if(character_selected->level < 15)
+                ImGui::Text("Level %i", character_selected->level);
+            else
+                ImGui::Text("Max Level Reached(15)");
+
+            //Exp
+            ImGui::Text("Experience %i", character_selected->experience);
+
+            //Base stats
+            ImGui::Text("Vitality");
+            ImGui::DragInt("##Vitality", &character_selected->vitality);
+            ImGui::SameLine();
+            ImGui::InputFloat("Vitality", &character_selected->mod_vitality, 0.01, 1.0f, "%.2f");
+
+            ImGui::Text("Wisdom");
+            ImGui::DragInt("##Wisdom", &character_selected->wisdom);
+            ImGui::SameLine();
+            ImGui::InputFloat("Wisdom", &character_selected->mod_wisdom, 0.01, 1.0f, "%.2f");
+
+            ImGui::Text("Strength");
+            ImGui::DragInt("##Strength", &character_selected->strength);
+            ImGui::SameLine();
+            ImGui::InputFloat("Strength", &character_selected->mod_strength, 0.01, 1.0f , "%.2f");
+
+            ImGui::Text("Agility");
+            ImGui::DragInt("##Agility", &character_selected->agility);
+            ImGui::SameLine();
+            ImGui::InputFloat("Agility", &character_selected->mod_agility, 0.01, 1.0f, "%.2f");
+
+            ImGui::Text("Defense");
+            ImGui::DragInt("##Defense", &character_selected->defense);
+            ImGui::SameLine();
+            ImGui::InputFloat("Defense", &character_selected->mod_defense, 0.01, 1.0f, "%.3f");
+
+            ImGui::Text("Arcane Defense");
+            ImGui::DragInt("##Arcane Defense", &character_selected->arcane_defense);
+            ImGui::SameLine();
+            ImGui::InputFloat("ArcaneDefense", &character_selected->mod_arcane_defense, 0.01, 1.0f, "%.2f");
+
+            ImGui::Text("Control");
+            ImGui::DragInt("##Control", &character_selected->control);
+            ImGui::SameLine();
+            ImGui::InputFloat("Control", &character_selected->mod_control, 0.01, 1.0f, "%.2f");
+
+            //Upgrade level
+            if (ImGui::Button("Upgrade Level"))
+                if(character_selected->level < 15)
+                    character_selected->UpgradeLevel();
         }
 
+        ImGui::End();
+    }
+
+    if (show_battle_window) {
+        ImGui::Begin("Battle Log");
+        ImGui::End();
+    }
+
+    if (show_graph_window) {
+        ImGui::Begin("Graphs", &show_graph_window, ImGuiWindowFlags_NoScrollbar);
+        static float values[90] = {};
+        float average = 0.0f;
+        for (int n = 0; n < IM_ARRAYSIZE(values); n++)
+            average += values[n];
+        average /= (float)IM_ARRAYSIZE(values);
+        char overlay[32];
+        sprintf(overlay, "avg %f", average);
+        ImGui::PlotLines("Lines", values, IM_ARRAYSIZE(values), 0, overlay, -1.0f, 1.0f, ImVec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
         ImGui::End();
     }
 }
@@ -241,8 +304,13 @@ void ModuleEditor::CreateCharacter(std::string name, int vit, int wis, int str, 
 
 void ModuleEditor::ShowCharacters(Character* character) {
 
-    if (ImGui::TreeNodeEx(character->char_name.c_str(), ImGuiTreeNodeFlags_Leaf)) {
-        if (ImGui::IsMouseClicked(0) && ImGui::IsAnyItemHovered())
+    ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_Leaf;
+
+    if (character == character_selected)
+        flag |= ImGuiTreeNodeFlags_Selected;
+
+    if (ImGui::TreeNodeEx(character->char_name.c_str(), flag)) {
+        if (ImGui::IsMouseDoubleClicked(0) && ImGui::IsAnyItemHovered())
             character_selected = character;
         ImGui::TreePop();
     }
