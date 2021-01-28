@@ -19,6 +19,8 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
     show_battle_window = true;
     show_graph_window = true;
 
+    simulations = 10;
+
     character_selected = nullptr;
 }
 
@@ -209,9 +211,8 @@ void ModuleEditor::UpdateWindowStatus() {
     //Console
     if (show_console_window) {
 
-        ImGui::Begin("Console");
+        ImGui::Begin("Battle Log");
         ImGui::TextUnformatted(console_text.begin(), console_text.end());
-        ImGui::SetScrollHere(1.0f);
         ImGui::End();
     }
 
@@ -284,20 +285,25 @@ void ModuleEditor::UpdateWindowStatus() {
     }
 
     if (show_battle_window) {
-        ImGui::Begin("Battle Log");
+        ImGui::Begin("Round Simulator");
 
         if (ImGui::Button("Start Simulation")) {
 
             //50 rounds simulated
-            for (size_t i = 0; i < 50; i++)
+            for (size_t i = 0; i < simulations; i++)
             {
+                LOG("---- Simulation Round %i ----", simulations);
+
                 //Each round make action with characters
                 for (size_t i = 0; i < characters.size(); i++)
                 {
+                    LOG("Current %s life: %i", characters[i]->char_name.c_str(), characters[i]->vitality);
+
                     //Do random action and calculate value
                     Actions action = (Actions)(rand() % 4);
                     float value = characters[i]->DoAction(action);
 
+                    //Interactions depending character
                     if (characters[i]->char_name != "Iqniq") {
 
                         //Apply damage if attack, add vitality as shield and damage mitigated into vitality
@@ -308,7 +314,7 @@ void ModuleEditor::UpdateWindowStatus() {
                     }
                     else {
 
-                        //pick random between Sura, Kiran and Nathan
+                        //Pick random between Sura, Kiran and Nathan
                         int randomCharacter = rand() % 3;
 
                         if (action == Actions::PhysAttack || action == Actions::MagicAttack) 
@@ -319,6 +325,10 @@ void ModuleEditor::UpdateWindowStatus() {
                 }
             }
         }
+
+        ImGui::SameLine();
+
+        ImGui::InputInt("Simulations", &simulations);
 
         ImGui::End();
     }

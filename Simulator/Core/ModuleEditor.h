@@ -52,6 +52,8 @@ public:
 	bool show_battle_window;
 	bool show_graph_window;
 
+	int simulations;
+
 	ImGuiTextBuffer console_text;
 	ImGuiTreeNodeFlags tmp_flags;
 
