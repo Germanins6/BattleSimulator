@@ -8,6 +8,8 @@
 #include <string>
 #include "ImGui/imgui_internal.h"
 #include <gl/GL.h>
+#include <time.h>
+#include <math.h>
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -32,6 +34,8 @@ bool ModuleEditor::Init() {
     CreateCharacter("Kiran", 800, 20, 10, 3, 3, 4, 10);
     CreateCharacter("Nathan", 400, 10, 2, 13, 1, 5, 3);
     CreateCharacter("Iqniq", 1500, 25, 17, 5, 7, 6, 14);
+
+    srand(time(NULL));
 
     return ret;
 }
@@ -281,6 +285,41 @@ void ModuleEditor::UpdateWindowStatus() {
 
     if (show_battle_window) {
         ImGui::Begin("Battle Log");
+
+        if (ImGui::Button("Start Simulation")) {
+
+            //50 rounds simulated
+            for (size_t i = 0; i < 50; i++)
+            {
+                //Each round make action with characters
+                for (size_t i = 0; i < characters.size(); i++)
+                {
+                    //Do random action and calculate value
+                    Actions action = (Actions)(rand() % 4);
+                    float value = characters[i]->DoAction(action);
+
+                    if (characters[i]->char_name != "Iqniq") {
+
+                        //Apply damage if attack, add vitality as shield and damage mitigated into vitality
+                        if (action == Actions::PhysAttack || action == Actions::MagicAttack)
+                            characters[3]->vitality -= value;
+                        else 
+                            characters[i]->vitality += value;
+                    }
+                    else {
+
+                        //pick random between Sura, Kiran and Nathan
+                        int randomCharacter = rand() % 3;
+
+                        if (action == Actions::PhysAttack || action == Actions::MagicAttack) 
+                            characters[randomCharacter]->vitality -= value;
+                        else
+                            characters[i]->vitality += value;
+                    }
+                }
+            }
+        }
+
         ImGui::End();
     }
 

@@ -4,7 +4,6 @@
 
 
 enum class Actions {
-	None = 0,
 	PhysAttack,
 	MagicAttack,
 	PhysDefense,
