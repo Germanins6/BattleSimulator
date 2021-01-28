@@ -21,7 +21,7 @@ Character::Character(string name, int vit, int wis, int str, int agi, int def, i
 	mod_arcane_defense = 0.0f;
 	mod_control = 0.0f;
 
-
+	currentAction = Actions::None;
 }
 
 Character::~Character() {
@@ -38,4 +38,23 @@ void Character::UpgradeLevel() {
 	control *= mod_control;
 	experience *= 1.5f;
 	level++;
+}
+
+float Character::DoAction(Actions action) {
+
+	float value;
+	
+	switch (action)
+	{
+	case Actions::PhysAttack:
+		return value = (strength + 0.1f * vitality) * PhysCrit(); break;
+	case Actions::MagicAttack:
+		return value = (wisdom + 0.1f * agility + vitality) * MagicCrit(); break;
+	case Actions::PhysDefense:
+		return value = (defense * strength) * agility; break;
+	case Actions::MagicDefense:
+		return value = (arcane_defense * control) * agility;  break;
+	}
+
+	return 0.0f;
 }

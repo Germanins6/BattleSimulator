@@ -2,6 +2,15 @@
 
 #include <string>
 
+
+enum class Actions {
+	None = 0,
+	PhysAttack,
+	MagicAttack,
+	PhysDefense,
+	MagicDefense,
+};
+
 using namespace std;
 
 class Character {
@@ -12,6 +21,10 @@ public:
 	~Character();
 
 	void UpgradeLevel();
+	float DoAction(Actions action);
+
+	inline float MagicCrit() { return 1 + (wisdom * (1 + control)); }
+	inline float PhysCrit() { return 1 + (wisdom * (1 + strength)); }
 
 public:
 
@@ -33,4 +46,6 @@ public:
 	float mod_defense;
 	float mod_arcane_defense;
 	float mod_control;
+
+	Actions currentAction;
 };

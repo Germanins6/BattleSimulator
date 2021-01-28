@@ -1,7 +1,7 @@
 //Modules
 #include "Application.h"
 #include "ModuleEditor.h"
-#include "../Character.h"
+#include "Character.h"
 
 //Tools
 #include "Globals.h"
@@ -120,6 +120,9 @@ bool ModuleEditor::CleanUp()
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
+
+    for (size_t i = 0; i < characters.size(); i++)
+        RELEASE(characters[i]);
 
 	return true;
 }

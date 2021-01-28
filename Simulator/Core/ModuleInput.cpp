@@ -136,6 +136,7 @@ bool ModuleInput::CleanUp()
 }
 
 void ModuleInput::InputInfo() {
+
 	ImGui::Text("Mouse Position");
 
 	ImGui::Text("X: ");
@@ -145,5 +146,4 @@ void ModuleInput::InputInfo() {
 	ImGui::Text("Y: ");
 	ImGui::SameLine();
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), "%i", mouse_y);
-
 }
