@@ -7,7 +7,14 @@
     "Name": "Sura",
     "Strength": 5,
     "Vitality": 600,
-    "Wisdom": 10
+    "Wisdom": 10,
+    "modAgility": 1.0,
+    "modArcaneDef": 1.0,
+    "modControl": 1.0,
+    "modDefense": 1.0,
+    "modStrength": 1.0,
+    "modVitality": 1.0,
+    "modWisdom": 1.0
   },
   "1": {
     "Agility": 3,
@@ -17,7 +24,14 @@
     "Name": "Kiran",
     "Strength": 10,
     "Vitality": 800,
-    "Wisdom": 20
+    "Wisdom": 20,
+    "modAgility": 1.0,
+    "modArcaneDef": 1.0,
+    "modControl": 1.0,
+    "modDefense": 1.0,
+    "modStrength": 1.0,
+    "modVitality": 1.0,
+    "modWisdom": 1.0
   },
   "2": {
     "Agility": 13,
@@ -27,7 +41,14 @@
     "Name": "Nathan",
     "Strength": 2,
     "Vitality": 400,
-    "Wisdom": 10
+    "Wisdom": 10,
+    "modAgility": 1.0,
+    "modArcaneDef": 1.0,
+    "modControl": 1.0,
+    "modDefense": 1.0,
+    "modStrength": 1.0,
+    "modVitality": 1.0,
+    "modWisdom": 1.0
   },
   "3": {
     "Agility": 5,
@@ -37,7 +58,14 @@
     "Name": "Iqniq",
     "Strength": 17,
     "Vitality": 1500,
-    "Wisdom": 25
+    "Wisdom": 25,
+    "modAgility": 1.0,
+    "modArcaneDef": 1.0,
+    "modControl": 1.0,
+    "modDefense": 1.0,
+    "modStrength": 1.0,
+    "modVitality": 1.0,
+    "modWisdom": 1.0
   },
   "Characters": 4
 }

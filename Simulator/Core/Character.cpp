@@ -47,9 +47,9 @@ float Character::DoAction(Actions action) {
 	switch (action)
 	{
 	case Actions::PhysAttack:
-		return value = (strength + 0.1f * vitality) * PhysCrit(); break;
+		return value = 100.0f + (strength + 0.5 * PhysCrit()); break;
 	case Actions::MagicAttack:
-		return value = (wisdom + 0.1f * agility + vitality) * MagicCrit(); break;
+		return value = 100.0f + (wisdom + 0.1f * MagicCrit()); break;
 	case Actions::PhysDefense:
 		return value = (defense * strength) * agility; break;
 	case Actions::MagicDefense:

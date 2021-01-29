@@ -298,6 +298,8 @@ void ModuleEditor::UpdateWindowStatus() {
         ImGui::InputInt("##Rounds to Simulate", &simulations);        
         if (ImGui::Button("Start Simulations per Level")) {
 
+            console_text.clear();
+
             int levels = 1;
             while (levels <= 15) {
                 LOG(" ///// Level %i /////", levels);
@@ -312,7 +314,7 @@ void ModuleEditor::UpdateWindowStatus() {
 
                         //Do random action and calculate value
                         Actions action = (Actions)(rand() % 4);
-                        float value = characters[i]->DoAction(action);
+                        uint value = characters[i]->DoAction(action);
 
                         //Interactions depending character
                         if (characters[i]->char_name != "Iqniq") {
@@ -334,20 +336,23 @@ void ModuleEditor::UpdateWindowStatus() {
                                 characters[i]->vitality += value;
                         }
                     }
-
-                    //LOG("%i %i %i %i", characters[0]->vitality, characters[1]->vitality, characters[2]->vitality, characters[3]->vitality);
                 }
                 levels++;
             }
         }
        
         if (ImGui::Button("Reset Characters"))
-            ResetCharacters();
+            ResetCharacters("defaultValues.json");
 
         ImGui::SameLine();
 
         if (ImGui::Button("Save Current Values"))
             StoreData();
+
+        ImGui::SameLine();
+
+        if(ImGui::Button("Load saved values"))
+            ResetCharacters("storedValues.json");
 
         ImGui::End();
     }
@@ -404,16 +409,23 @@ void ModuleEditor::StoreData() {
         data.AddUnsignedIntObj("Defense", characters[i]->defense, to_string(i));
         data.AddUnsignedIntObj("ArcaneDef", characters[i]->arcane_defense, to_string(i));
         data.AddUnsignedIntObj("Control", characters[i]->control, to_string(i));
-       
+   
+        data.AddFloatObj("modVitality", characters[i]->mod_vitality, to_string(i));
+        data.AddFloatObj("modWisdom", characters[i]->mod_wisdom, to_string(i));
+        data.AddFloatObj("modStrength", characters[i]->mod_strength, to_string(i));
+        data.AddFloatObj("modAgility", characters[i]->mod_agility, to_string(i));
+        data.AddFloatObj("modDefense", characters[i]->mod_defense, to_string(i));
+        data.AddFloatObj("modArcaneDef", characters[i]->mod_arcane_defense, to_string(i));
+        data.AddFloatObj("modControl", characters[i]->mod_control, to_string(i));
     }
 
     data.Save("storedValues.json");
 }
 
 //Takes json file from root and set characters in default values
-void ModuleEditor::ResetCharacters() {
+void ModuleEditor::ResetCharacters(const char* file) {
 
-    data.Load("defaultValues.json");
+    data.Load(file);
 
     //Clean vector to add again later characters
     character_selected = nullptr;
@@ -421,7 +433,6 @@ void ModuleEditor::ResetCharacters() {
         RELEASE(characters[i]);
 
     characters.clear();
-    
     
     int nCharacters = data.GetInt("Characters");
     
@@ -436,8 +447,23 @@ void ModuleEditor::ResetCharacters() {
         uint ArcaneDef = data.GetUnsignedIntObj("ArcaneDef", to_string(i));
         uint Control = data.GetUnsignedIntObj("Control", to_string(i));
         
+        float modVitality = data.GetFloatObj("modVitality", to_string(i));
+        float modWisdom = data.GetFloatObj("modWisdom", to_string(i));
+        float modStrength = data.GetFloatObj("modStrength", to_string(i));
+        float modAgility = data.GetFloatObj("modAgility", to_string(i));
+        float modDefense = data.GetFloatObj("modDefense", to_string(i));
+        float modArcaneDef = data.GetFloatObj("modArcaneDef", to_string(i));
+        float modControl = data.GetFloatObj("modControl", to_string(i));
+        
         Character* newChar = new Character(charname, Vitality, Wisdom, Strength, Agility, Defense, ArcaneDef, Control);
+        newChar->mod_vitality = modVitality;
+        newChar->mod_wisdom = modWisdom;
+        newChar->mod_strength = modStrength;
+        newChar->mod_agility = modAgility;
+        newChar->mod_defense = modDefense;
+        newChar->mod_arcane_defense = modArcaneDef;
+        newChar->mod_control = modControl;
+        
         characters.push_back(newChar);
-    }
-    
+    }   
 }

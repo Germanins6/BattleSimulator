@@ -42,7 +42,7 @@ public:
 	void CreateCharacter(std::string name, int vit, int wis, int str, int agi, int def, int arc_def, int ctrl);
 	void ShowCharacters(Character* character);
 	void StoreData();
-	void ResetCharacters();
+	void ResetCharacters(const char* file);
 
 public:
 
