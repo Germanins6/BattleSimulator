@@ -1,0 +1,43 @@
+{
+  "0": {
+    "Agility": 10,
+    "ArcaneDef": 2,
+    "Control": 6,
+    "Defense": 3,
+    "Name": "Sura",
+    "Strength": 5,
+    "Vitality": 600,
+    "Wisdom": 10
+  },
+  "1": {
+    "Agility": 3,
+    "ArcaneDef": 4,
+    "Control": 10,
+    "Defense": 3,
+    "Name": "Kiran",
+    "Strength": 10,
+    "Vitality": 800,
+    "Wisdom": 20
+  },
+  "2": {
+    "Agility": 13,
+    "ArcaneDef": 5,
+    "Control": 3,
+    "Defense": 1,
+    "Name": "Nathan",
+    "Strength": 2,
+    "Vitality": 400,
+    "Wisdom": 10
+  },
+  "3": {
+    "Agility": 5,
+    "ArcaneDef": 6,
+    "Control": 14,
+    "Defense": 7,
+    "Name": "Iqniq",
+    "Strength": 17,
+    "Vitality": 1500,
+    "Wisdom": 25
+  },
+  "Characters": 4
+}

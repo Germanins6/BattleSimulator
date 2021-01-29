@@ -6,6 +6,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ImGui/imgui_impl_opengl3.h"
+#include "Serialization.h"
 
 #include <string>
 #include <vector>
@@ -40,6 +41,8 @@ public:
 
 	void CreateCharacter(std::string name, int vit, int wis, int str, int agi, int def, int arc_def, int ctrl);
 	void ShowCharacters(Character* character);
+	void StoreData();
+	void ResetCharacters();
 
 public:
 
@@ -59,4 +62,7 @@ public:
 
 	std::vector<Character*> characters;
 	Character* character_selected;
+
+	Serializer data;
+
 };

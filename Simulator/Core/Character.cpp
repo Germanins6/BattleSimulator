@@ -13,13 +13,13 @@ Character::Character(string name, int vit, int wis, int str, int agi, int def, i
 	level = 1;
 	experience = 150;
 
-	mod_vitality = 0.0f;
-	mod_wisdom = 0.0f;
-	mod_strength = 0.0f;
-	mod_agility = 0.0f;
-	mod_defense = 0.0f;
-	mod_arcane_defense = 0.0f;
-	mod_control = 0.0f;
+	mod_vitality = 1.0f;
+	mod_wisdom = 1.0f;
+	mod_strength = 1.0f;
+	mod_agility = 1.0f;
+	mod_defense = 1.0f;
+	mod_arcane_defense = 1.0f;
+	mod_control = 1.0f;
 
 	currentAction;
 }
