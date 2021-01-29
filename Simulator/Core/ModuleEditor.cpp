@@ -19,7 +19,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
     show_battle_window = true;
     show_graph_window = true;
 
-    simulations = 10;
+    simulations = 1000;
 
     character_selected = nullptr;
 }
@@ -32,10 +32,7 @@ ModuleEditor::~ModuleEditor()
 bool ModuleEditor::Init() {
     bool ret = true;
   
-    CreateCharacter("Sura", 600, 10, 5, 10, 3, 2, 6);
-    CreateCharacter("Kiran", 800, 20, 10, 3, 3, 4, 10);
-    CreateCharacter("Nathan", 400, 10, 2, 13, 1, 5, 3);
-    CreateCharacter("Iqniq", 1500, 25, 17, 5, 7, 6, 14);
+    ResetCharacters("defaultValues.json");
 
     srand(time(NULL));
 
@@ -295,49 +292,82 @@ void ModuleEditor::UpdateWindowStatus() {
 
 
         ImGui::TextUnformatted("Simulate");
-        ImGui::InputInt("##Rounds to Simulate", &simulations);        
+        ImGui::InputInt("##Rounds to Simulate", &simulations); 
+
         if (ImGui::Button("Start Simulations per Level")) {
 
             console_text.clear();
 
-            int levels = 1;
-            while (levels <= 15) {
-                LOG(" ///// Level %i /////", levels);
-                for (size_t i = 0; i < simulations; i++)
-                {
-                    LOG("---- Simulation Round %i ----", i);
+            int iterations = 0;
 
-                    //Each round make action with characters
-                    for (size_t i = 0; i < characters.size(); i++)
+            while(iterations <= simulations)
+            {
+                LOG("---- Simulation Round %i ----", iterations);
+
+                //Each round make action with characters
+                for (size_t i = 0; i < characters.size(); i++)
                     {
                         LOG("%s life: %i", characters[i]->char_name.c_str(), characters[i]->vitality);
 
+                        //Check life for each character and s
+                        if (characters[i]->vitality <= 0) {
+                            characters[i]->vitality = 0;
+                            continue;
+                        }
+
                         //Do random action and calculate value
                         Actions action = (Actions)(rand() % 4);
+                        characters[i]->currentAction = action;
                         uint value = characters[i]->DoAction(action);
 
                         //Interactions depending character
                         if (characters[i]->char_name != "Iqniq") {
+    
+                            Actions IqniqAction = characters[3]->currentAction;
+                            float damage = value;
 
                             //Apply damage if attack, add vitality as shield and damage mitigated into vitality
-                            if (action == Actions::PhysAttack || action == Actions::MagicAttack)
-                                characters[3]->vitality -= value;
-                            else
-                                characters[i]->vitality += value;
+                            if (action == Actions::PhysAttack || action == Actions::MagicAttack) {
+
+                                if(IqniqAction == Actions::PhysDefense)
+                                    damage = value * (characters[3]->defense / 100);
+                                else if(IqniqAction == Actions::MagicDefense)
+                                    damage = value * (characters[3]->arcane_defense / 100);
+
+                                characters[3]->vitality -= damage;
+                            }
                         }
                         else {
 
                             //Pick random between Sura, Kiran and Nathan
                             int randomCharacter = rand() % 3;
 
-                            if (action == Actions::PhysAttack || action == Actions::MagicAttack)
-                                characters[randomCharacter]->vitality -= value;
-                            else
-                                characters[i]->vitality += value;
+                            if (action == Actions::PhysAttack || action == Actions::MagicAttack) {
+
+                                Actions enemyAction = characters[randomCharacter]->currentAction;
+                                float damage = value;
+
+                                if (enemyAction == Actions::PhysDefense)
+                                    damage = value * (characters[randomCharacter]->defense / 100);
+                                else if (enemyAction == Actions::MagicDefense)
+                                    damage = value * (characters[randomCharacter]->arcane_defense / 100);
+
+                                characters[randomCharacter]->vitality -= damage;                                
+                            }
+                        
+
                         }
                     }
-                }
-                levels++;
+
+                //Stop simulations when Iqniq defeated
+                if (characters[3]->vitality <= 0)
+                    break;
+
+                
+                if (characters[0]->vitality <= 0 && characters[1]->vitality <= 0 && characters[2]->vitality <= 0)
+                    break;
+
+                iterations++;
             }
         }
        
@@ -353,6 +383,13 @@ void ModuleEditor::UpdateWindowStatus() {
 
         if(ImGui::Button("Load saved values"))
             ResetCharacters("storedValues.json");
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("+1 Level all characters "))
+            for (size_t i = 0; i < characters.size(); i++)
+                if(characters[i]->level < 15)
+                    characters[i]->UpgradeLevel();
 
         ImGui::End();
     }

@@ -21,7 +21,7 @@ Character::Character(string name, int vit, int wis, int str, int agi, int def, i
 	mod_arcane_defense = 1.0f;
 	mod_control = 1.0f;
 
-	currentAction;
+	currentAction = Actions::None;
 }
 
 Character::~Character() {

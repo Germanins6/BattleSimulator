@@ -8,6 +8,7 @@ enum class Actions {
 	MagicAttack,
 	PhysDefense,
 	MagicDefense,
+	None,
 };
 
 using namespace std;
